@@ -1,0 +1,27 @@
+server:
+  port: 10002
+  servlet:
+    context-path: /demo
+    encoding:
+      charset: UTF-8
+      force: true
+spring:
+  application:
+    name: demo
+  profiles:
+    active: dev
+  cache:
+    type: redis
+  redis:
+    password: mawen
+    timeout: 2000ms
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/test_db?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&useAffectedRows=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: mawen
+    password: mawen2021
+
+mybatis:
+  type-aliases-package: com.shopee.bke.spock.demo.repo
+  mapper-locations: classpath:mapper/*.xml
