@@ -45,7 +45,7 @@ class UserServiceSpec extends Specification {
         user2.username = 'mawen-1'
         user2.nickname = 'nickname-1'
         user2.id = 1
-        mapper.selectByPrimaryKeys(a) >> [user1, user2]
+        mapper.selectByPrimaryKeys(a) >>> [user1, user2]
 
         then:
         userService.getBunch([1, 2]).size() == 2
