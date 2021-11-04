@@ -25,7 +25,7 @@ class UserMapperIntegrationTestSpec extends Specification {
         example.nickname = 'nickname-1'
     }
 
-    def '反例-insert'() {
+    def '反例-insert failure because of duplicate record'() {
         when: '插入重复数据'
         userMapper.insert(example)
         then: '主键冲突'
@@ -53,7 +53,7 @@ class UserMapperIntegrationTestSpec extends Specification {
         }
     }
 
-    def '反例-select by primary key'() {
+    def '反例-return null if select non-exist key'() {
         expect: '查询不存存在的数据返回null'
         !userMapper.selectByPrimaryKey(4)
     }
@@ -65,7 +65,7 @@ class UserMapperIntegrationTestSpec extends Specification {
         userMapper.selectByPrimaryKeys(params).size() == 3
     }
 
-    def '反例-select by primary keys'() {
+    def '反例-select by primary keys with empty param list'() {
         expect: '参数为空查询全部'
         userMapper.selectByPrimaryKeys([]).size() == 3
 
@@ -82,12 +82,12 @@ class UserMapperIntegrationTestSpec extends Specification {
     }
 
     //删除一条不存在的记录
-    def '反例-delete by primary key'() {
+    def '反例-delete none because record not exist'() {
         expect:
         userMapper.deleteByPrimaryKey(4) == 0
     }
 
-    def '正例-update'() {
+    def '正例-update by key'() {
         given:
         def a = new User()
         a.nickname = 'nickname-1-modified'
@@ -98,7 +98,7 @@ class UserMapperIntegrationTestSpec extends Specification {
         userMapper.updateByPrimaryKey(example)
     }
 
-    def '反例-update'() {
+    def '反例-update none record because of not existed'() {
         given:
         def a = new User()
         a.nickname = 'nickname-1-modified'

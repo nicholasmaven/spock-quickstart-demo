@@ -6,6 +6,7 @@ import com.github.nicholasmaven.spock.demo.repo.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,6 +38,18 @@ public class UserService {
         if (user != null && valid(user.getId(), user.getUsername(), user.getNickname())) {
             mapper.updateByPrimaryKey(user);
         }
+    }
+
+    // only for demo
+    public List<String> doSth(List<Integer> user) {
+        //
+        return Arrays.asList("username-1", "username-2", "username-3", "username4");
+    }
+
+    // only for demo
+    public Integer getStudentScore(String className, String userName) {
+        //
+        return 1;
     }
 
     public boolean valid(Integer id, String name, String nickname) {

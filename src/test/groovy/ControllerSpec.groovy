@@ -50,7 +50,7 @@ class UserControllerSpec extends Specification {
         x.contains("mawen-1")
     }
 
-    def '反例-查询用户'() {
+    def '反例-throw exception if record not exists'() {
         given:
         userService.get(0) >> { throw new UserException("no one") }
         when:

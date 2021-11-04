@@ -25,7 +25,7 @@ class UserServiceSpec extends Specification {
         }
     }
 
-    def '反例-get'() {
+    def '反例-throw exception because mapper throw exception'() {
         when:
         mapper.selectByPrimaryKey(1) >> null
         userService.get(1)
@@ -33,7 +33,7 @@ class UserServiceSpec extends Specification {
         thrown(UserException)
     }
 
-    def '正例-getBunch'() {
+    def '正例-getBunch with specified ids'() {
         given:
         def a = [1, 2]
         when:
@@ -51,7 +51,7 @@ class UserServiceSpec extends Specification {
         userService.getBunch([1, 2]).size() == 2
     }
 
-    def '反例-getBunch'() {
+    def '反例-get none because record not exist'() {
         when:
         mapper.selectByPrimaryKeys([1, 2]) >> []
         then:
@@ -70,7 +70,7 @@ class UserServiceSpec extends Specification {
         userService.valid(1, 'mawen-1', 'nickname-m') //返回值为true
     }
 
-    def '反例-valid'() {
+    def '反例-not valid because param invalid'() {
         expect: '参数非法返回false'
         !userService.valid(a, b, c)
         where: '参数化测试'
@@ -94,7 +94,7 @@ class UserServiceSpec extends Specification {
         return user;
     }
 
-    def '正例-update'() {
+    def '正例-update success'() {
         given:
         def x = new User()
         x.username = 'mawen-1'
@@ -106,7 +106,7 @@ class UserServiceSpec extends Specification {
         1 * mapper.updateByPrimaryKey(x)
     }
 
-    def '反例-update'() {
+    def '反例-update failed because param is null'() {
         when:
         userService.update(null)
         then:
